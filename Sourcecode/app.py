@@ -78,7 +78,6 @@ def cancer():
         smoothness_worst = float(request.form['smoothness_worst'])
         symmetry_worst = float(request.form['symmetry_worst'])
         fractal_dimension_worst = float(request.form['fractal_dimension_worst'])
-
         input_data = np.array([radius_mean, texture_mean, smoothness_mean, compactness_mean,
                                symmetry_mean, fractal_dimension_mean, radius_se, texture_se,
                                smoothness_se, compactness_se, concave_points_se, symmetry_se,
@@ -87,7 +86,7 @@ def cancer():
 
         
         prediction = model.predict(input_data)
-        diagnosis = "Malignant" if prediction == 1 else "Benign"
+        diagnosis = "Breast cancer" if prediction == 1 else "no breast cancer"
         return render_template('cancer.html', diagnosis=diagnosis)
     return render_template('cancer.html')
 

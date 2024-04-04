@@ -82,23 +82,22 @@
         }
 
     </style>
-  </head>
-  <body>
-    
+</head>
+<body>
     <div class="login">
         <h1>Diabetes Predictor</h1>
         <div class="close-button">
             <button><a href='/'>X</a></button>
         </div>
-        <form action="/diabetes" method="post">
-            <input class="form-input" type="text" name="pregnancies" placeholder="Number of Pregnancies eg. 0"><br>
-            <input class="form-input" type="text" name="glucose" placeholder="Glucose (mg/dL) eg. 80"><br>
-            <input class="form-input" type="text" name="bloodpressure" placeholder="Blood Pressure (mmHg) eg. 80"><br>
-            <input class="form-input" type="text" name="skinthickness" placeholder="Skin Thickness (mm) eg. 20"><br>
-            <input class="form-input" type="text" name="insulin" placeholder="Insulin Level (IU/mL) eg. 80"><br>
-            <input class="form-input" type="text" name="bmi" placeholder="Body Mass Index (kg/m²) eg. 23.1"><br>
-            <input class="form-input" type="text" name="dpf" placeholder="Diabetes Pedigree Function eg. 0.52"><br>
-            <input class="form-input" type="text" name="age" placeholder="Age (years) eg. 34"><br>
+        <form id="prediction-form" action="/diabetes" method="post">
+            <input class="form-input" type="number" name="pregnancies" placeholder="Pregnancies (0 to 17)" min="0" max="17" required><br>
+            <input class="form-input" type="number" name="glucose" placeholder="Glucose (mg/dL) (0 to 122)" min="0" max="122" required><br>
+            <input class="form-input" type="number" name="bloodpressure" placeholder="Blood Pressure (mmHg) (0 to 122)" min="0" max="122" required><br>
+            <input class="form-input" type="number" name="skinthickness" placeholder="Skin Thickness (mm) (0 to 99)" min="0" max="99" required><br>
+            <input class="form-input" type="number" name="insulin" placeholder="Insulin Level (IU/mL) (0 to 700)" min="0" max="700" required><br>
+            <input class="form-input" type="number" name="bmi" placeholder="Body Mass Index (kg/m²) (0 to 65.1)" min="0" max="65.1" required><br>
+            <input class="form-input" type="number" name="dpf" placeholder="Diabetes Pedigree Function (0 to 1)" min="0" max="1" step="0.01" required><br>
+            <input class="form-input" type="number" name="age" placeholder="Age (years) (21 to 80)" min="21" max="80" required><br>
             <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
         </form>
         <br>
@@ -106,14 +105,36 @@
         {{ prediction_text }}
         
         <div class="results">
-			{% if prediction==1 %}
-				<h1>Prediction: <span class='danger'>Opps! You have DIABETES.</span></h1>
-				<img class="gif" src="{{ url_for('static', filename='diabetes.webp') }}" alt="Diabetes Image">
-			{% elif prediction==0 %}
-				<h1>Prediction: <span class='safe'>Wow ! You DON'T have diabetes.</span></h1>
-				<img class="gif1" src="{{ url_for('static', filename='no-diabetes.webp') }}" alt="Not Diabetes Image">
-			{% endif %}
-		</div>
+            {% if prediction==1 %}
+                <h1>Prediction: <span class='danger'>Oops! You have DIABETES.</span></h1>
+                <img class="gif" src="{{ url_for('static', filename='diabetes.webp') }}" alt="Diabetes Image">
+            {% elif prediction==0 %}
+                <h1>Prediction: <span class='safe'>Wow! You DON'T have diabetes.</span></h1>
+                <img class="gif1" src="{{ url_for('static', filename='no-diabetes.webp') }}" alt="Not Diabetes Image">
+            {% endif %}
+        </div>
     </div>
+
+    <script>
+        document.getElementById("prediction-form").addEventListener("submit", function(event) {
+            var form = event.target;
+            var inputs = form.querySelectorAll("input[type='number']");
+            var isValid = true;
+
+            inputs.forEach(function(input) {
+                if (!input.value) {
+                    isValid = false;
+                    input.style.border = "1px solid red";
+                } else {
+                    input.style.border = "1px solid #ccc";
+                }
+            });
+
+            if (!isValid) {
+                event.preventDefault();
+                alert("Please fill in all fields.");
+            }
+        });
+    </script>
 </body>
 </html>

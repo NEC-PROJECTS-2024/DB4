@@ -5,110 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Breast Cancer Prediction</title>
     <style>
-        /* Reset CSS */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      /* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        /* Global Styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url('../static/br.jpg'); /* Replace 'background.jpg' with your image file */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('../static/br.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
 
-        /* Container Styles */
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            height: auto;
-            overflow-y: auto;
-            border: 2px solid #ccc;
-            background-color: rgba(228, 197, 202, 0.97);
-            border-radius: 10px;
-        }
+/* Container Styles */
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid #ccc;
+    background-color: rgba(228, 197, 202, 0.97);
+    border-radius: 10px;
+}
 
-        /* Heading Styles */
-        h1 {
-            color: #007bff;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+/* Heading Styles */
+h1 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-        /* Form Styles */
-        form {
-            width: 100%;
-            margin: 0 auto;
-            padding: 10px;
-        }
+/* Form Styles */
+form {
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+}
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #0056b3;
-        }
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #0056b3;
+}
 
-        input[type="text"] {
-            width: calc(100% - 30px);
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
+input[type="number"] {
+    width: calc(100% - 30px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
 
-        button[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: block;
-            margin: 0 auto;
-            margin-top: 20px;
-        }
+button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+}
 
-        button[type="submit"]:hover {
-            background-color: #0056b3;
-        }
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
 
-        /* Diagnosis Styles */
-        .diagnosis {
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.2em;
-            margin-top: 30px;
-        }
+/* Diagnosis Styles */
+.diagnosis {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 30px;
+}
 
-        /* Close Button Styles */
-        .close-button {
-            text-align: right;
-        }
+/* Close Button Styles */
+.close-button {
+    text-align: right;
+}
 
-        .close-button a {
-            background-color: #ff0000;
-            color: #fff;
-            padding: 5px 10px;
-            text-decoration: none;
-            border-radius: 3px;
-        }
+.close-button a {
+    background-color: #ff0000;
+    color: #fff;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 3px;
+}
 
-        .close-button a:hover {
-            background-color: #cc0000;
-        }
-        .fscroll{
-            height:500px;
-            overflow-y: scroll;
-        }
+.close-button a:hover {
+    background-color: #cc0000;
+}
+
+/* Scrollbar Styles */
+.fscroll {
+    height: 500px;
+    overflow-y: scroll;
+}
+
     </style>
 </head>
 <body>
@@ -118,54 +119,45 @@
         </div>
         <h1>Breast Cancer Prediction</h1>
         <div class="fscroll">
-        <form action="/cancer" method="post">
-            <label for="radius_mean">Radius Mean:</label>
-            <input type="text" id="radius_mean" name="radius_mean"><br><br>
+            <form action="/cancer" id="prediction-form" method="post">
+                <label for="radius_mean">Radius Mean:</label>
+                <input type="number" id="radius_mean" name="radius_mean" placeholder="enter between 0-100" min="0" max="100"><br><br>
+                
+                <label for="texture_mean">Texture Mean:</label>
+                <input type="number" id="texture_mean" name="texture_mean" placeholder="enter between 0-100" min="0" max="100"><br><br>
             
-            <label for="texture_mean">Texture Mean:</label>
-            <input type="text" id="texture_mean" name="texture_mean"><br><br>
+                <label for="perimeter_mean">Perimeter Mean:</label>
+                <input type="number" id="perimeter_mean" name="perimeter_mean" placeholder="enter between 0-200" min="0" max="200"><br><br>
+                
+                <label for="area_mean">Area Mean:</label>
+                <input type="number" id="area_mean" name="area_mean" min="0" placeholder="enter between 0-2500" max="2500"><br><br>
+                
+                <label for="smoothness_mean">Smoothness Mean:</label>
+                <input type="number" id="smoothness_mean" name="smoothness_mean" min="0" placeholder="enter between 0-1" max="1"><br><br>
+                
+                <label for="compactness_mean">Compactness Mean:</label>
+                <input type="number" id="compactness_mean" name="compactness_mean" min="0" max="1" placeholder="enter between 0-1"><br><br>
+                
+                <label for="concavity_mean">Concavity Mean:</label>
+                <input type="number" id="concavity_mean" name="concavity_mean" min="0" max="1" placeholder="enter between 0-1"><br><br>
+                
+                <label for="concave_points_mean">Concave Points Mean:</label>
+                <input type="number" id="concave_points_mean" name="concave_points_mean" min="0" max="1" placeholder="enter between 0-1"><br><br>
+                <label for="symmetry_se">Symmetry SE:</label>
+<input type="number" id="symmetry_se" name="symmetry_se" min="0" max="1" placeholder="enter between 0-1"><br><br>
 
-            <label for="smoothness_mean">Smoothness Mean:</label>
-            <input type="text" id="smoothness_mean" name="smoothness_mean"><br><br>
-            
-            <label for="compactness_mean">Compactness Mean:</label>
-            <input type="text" id="compactness_mean" name="compactness_mean"><br><br>
-            
-            <label for="symmetry_mean">Symmetry Mean:</label>
-            <input type="text" id="symmetry_mean" name="symmetry_mean"><br><br>
-            
-            <label for="fractal_dimension_mean">Fractal Dimension Mean:</label>
-            <input type="text" id="fractal_dimension_mean" name="fractal_dimension_mean"><br><br>
-            
-            <label for="radius_se">Radius SE:</label>
-            <input type="text" id="radius_se" name="radius_se"><br><br>
-            
-            <label for="texture_se">Texture SE:</label>
-            <input type="text" id="texture_se" name="texture_se"><br><br>
-            
-            <label for="smoothness_se">Smoothness SE:</label>
-            <input type="text" id="smoothness_se" name="smoothness_se"><br><br>
-            
-            <label for="compactness_se">Compactness SE:</label>
-            <input type="text" id="compactness_se" name="compactness_se"><br><br>
-            
-            <label for="concave_points_se">Concave Points SE:</label>
-            <input type="text" id="concave_points_se" name="concave_points_se"><br><br>
-            
-            <label for="symmetry_se">Symmetry SE:</label>
-            <input type="text" id="symmetry_se" name="symmetry_se"><br><br>
-            
-            <label for="smoothness_worst">Smoothness Worst:</label>
-            <input type="text" id="smoothness_worst" name="smoothness_worst"><br><br>
-            
-            <label for="symmetry_worst">Symmetry Worst:</label>
-            <input type="text" id="symmetry_worst" name="symmetry_worst"><br><br>
-            
-            <label for="fractal_dimension_worst">Fractal Dimension Worst:</label>
-            <input type="text" id="fractal_dimension_worst" name="fractal_dimension_worst"><br><br>
+<label for="smoothness_worst">Smoothness Worst:</label>
+<input type="number" id="smoothness_worst" name="smoothness_worst" min="0" max="1" placeholder="enter between 0-1"><br><br>
 
-            <button type="submit">Predict</button>
-        </form>
+<label for="symmetry_worst">Symmetry Worst:</label>
+<input type="number" id="symmetry_worst" name="symmetry_worst" min="0" max="1" placeholder="enter between 0-1"><br><br>
+
+<label for="fractal_dimension_worst">Fractal Dimension Worst:</label>
+<input type="number" id="fractal_dimension_worst" name="fractal_dimension_worst" min="0" max="1" placeholder="enter between 0-1"><br><br>
+
+            
+                <button type="submit">Predict</button>
+            </form>
     </div>
         
     </div>
@@ -173,5 +165,27 @@
         <h2>Diagnosis:</h2>
         <p>{{ diagnosis }}</p>
     </div>
+
+    <script>
+        document.getElementById("prediction-form").addEventListener("submit", function(event) {
+            var form = event.target;
+            var inputs = form.querySelectorAll("input[type='number']");
+            var isValid = true;
+
+            inputs.forEach(function(input) {
+                if (!input.value) {
+                    isValid = false;
+                    input.style.border = "1px solid red";
+                } else {
+                    input.style.border = "1px solid #ccc";
+                }
+            });
+
+            if (!isValid) {
+                event.preventDefault();
+                alert("Please fill in all fields.");
+            }
+        });
+    </script>
 </body>
 </html>
